@@ -9,5 +9,6 @@ public class first {
         Scanner in = new Scanner(System.in);
         String s = in. nextLine();
         System.out.println(s);
+        System.out.println(s);
     }
 }
