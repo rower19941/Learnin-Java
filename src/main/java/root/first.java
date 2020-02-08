@@ -10,5 +10,8 @@ public class first {
         String s = in. nextLine();
         System.out.println(s);
         System.out.println(s);
+        System.out.println(s);
+        System.out.println(s);
+        System.out.println(s);
     }
 }
