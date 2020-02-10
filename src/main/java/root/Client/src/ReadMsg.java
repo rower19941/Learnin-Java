@@ -9,7 +9,7 @@ public class ReadMsg extends Thread {
             while (Client.getIsOnline()) {
                 String text = reader.readLine();
                 if (text != null) {
-                    System.out.println(Client.getClientTime().format(new Date()) + text);
+                    Client.getWindow().getOutputTextArea().append(Client.getClientTime().format(new Date()) + text + System.lineSeparator());
                 }
             }
         } catch (IOException e) {

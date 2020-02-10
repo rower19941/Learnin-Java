@@ -10,17 +10,18 @@ public class Client {
     private static BufferedWriter out;
     private static volatile boolean isOnline;
     private static DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss ");
+    private static Window window;
 
 
     public static void main(String[] args) throws IOException {
+        window = new Window();
+        window.setVisible(true);
         socket = new Socket(InetAddress.getLocalHost(), 8080);
         System.out.println("Подключение прошло успешно");
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         ReadMsg readMsg = new ReadMsg();
-        WriteMsg writeMsg = new WriteMsg();
         readMsg.start();
-        writeMsg.start();
         isOnline = true;
         System.out.println("Укажите ваше имя");
         while (isOnline) {};
@@ -49,11 +50,22 @@ public class Client {
         return in;
     }
 
-    public static BufferedWriter getOut() {
-        return out;
-    }
-
     public static DateFormat getClientTime() {
         return dateFormat;
+    }
+
+    public static Window getWindow() {
+        return window;
+    }
+
+    public static void WriteMsg() {
+        try {
+            String text = window.getInputTextArea().getText();
+            out.write(text + "\n");
+            out.flush();
+            window.getInputTextArea().setText("");
+        } catch (Exception e) {
+            System.out.println("Проблемы с отправкой сообщения подключения");;
+        }
     }
 }
