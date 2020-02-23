@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Window extends JFrame {
 
@@ -27,14 +29,30 @@ public class Window extends JFrame {
         container.add(inputTextArea);
         button.addActionListener(new ButtonEvent());
         container.add(button);
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Client.WriteMsg("Server close this connection please 4815162342");
+                super.windowClosing(e);
+            }
+        });
+
     }
+
 
     class ButtonEvent implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            Client.WriteMsg();
+            String text = inputTextArea.getText();
+            inputTextArea.setText("");
+            Client.WriteMsg(text);
         }
+    }
+
+    public void createWindowForNickname() {
+        NickNameEnterWindow nickNameEnterWindow = new NickNameEnterWindow();
     }
 
     public JTextArea getOutputTextArea() {

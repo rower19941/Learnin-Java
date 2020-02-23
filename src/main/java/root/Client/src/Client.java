@@ -16,6 +16,7 @@ public class Client {
     public static void main(String[] args) throws IOException {
         window = new Window();
         window.setVisible(true);
+        window.createWindowForNickname();
         socket = new Socket(InetAddress.getLocalHost(), 8080);
         System.out.println("Подключение прошло успешно");
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -50,6 +51,7 @@ public class Client {
         return in;
     }
 
+
     public static DateFormat getClientTime() {
         return dateFormat;
     }
@@ -58,12 +60,10 @@ public class Client {
         return window;
     }
 
-    public static void WriteMsg() {
+    public static void WriteMsg(String msg) {
         try {
-            String text = window.getInputTextArea().getText();
-            out.write(text + "\n");
+            out.write(msg + "\n");
             out.flush();
-            window.getInputTextArea().setText("");
         } catch (Exception e) {
             System.out.println("Проблемы с отправкой сообщения подключения");;
         }

@@ -37,6 +37,7 @@ public class ServerConnection extends Thread{
             }
             for (ServerConnection sc : Server.getServerConnections()) {
                 sc.getOut().write("Пользователь " + this.name + " подключился" + "\n");
+                Server.addToHistory("Пользователь " + this.name + " подключился");
                 sc.getOut().flush();
             }
         } catch (Exception e ) {
@@ -54,6 +55,7 @@ public class ServerConnection extends Thread{
             try {
                 for (ServerConnection sc : Server.getServerConnections()) {
                     sc.getOut().write("Пользователь " + this.name + " отключился" + "\n");
+                    Server.addToHistory("Пользователь " + this.name + " отключился");
                     sc.getOut().flush();
                 }
             } catch (Exception e ) {

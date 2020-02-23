@@ -14,7 +14,8 @@ public class ReadMsg extends Thread {
         try {
             while (serverConnection.isAlive()) {
                 String text = in.readLine();
-                if (text != null) {
+                if (text.equals("Server close this connection please 4815162342")) serverConnection.setOnline(false);
+                else if (text != null) {
                     System.out.println(Server.getServerTime().format(new Date()) + serverConnection.getConnectionName() + ": " + text);
                     if (text.equals("stop")) {
                         serverConnection.setOnline(false);
@@ -24,8 +25,6 @@ public class ReadMsg extends Thread {
                     writeMsg.start();
                 }
             }
-//            in.close();
-//            out.close();
         } catch (Exception e) {
             System.out.println(Server.getServerTime().format(new Date()) + "Проблемы с чтением сообщения");
         }
